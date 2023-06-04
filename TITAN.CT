@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="19">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"Auto Assemble script"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem, 1024)
+alloc(newval, 32)
+alloc(myval, 32)
+alloc(debug, 32)
+aobscan(aob, D9 5B 1C 83 C4 18 5B C3 D9 81 98 00 00 00)
+
+label(return)
+
+newval:
+dd 0
+
+myval:
+dd 10
+
+debug:
+dd 0
+
+newmem: //follow this memory and check y coord
+//push eax
+//fstp dword ptr [newval] //+1C
+//mov eax, dword ptr [ebx+1C]
+//mov dword ptr [newval], eax
+//pop eax
+
+fstp dword ptr [newval] //+1C
+//add dword ptr [newval], myval
+//mov dword ptr [debug], newval
+//mov dword ptr [ebx+1C], debug
+
+//add [newval], myval
+div dword ptr [newval]
+
+//dec dword ptr [newval]
+//sub dword ptr [newval], 400
+//mov dword ptr [newval], 177f
+push dword ptr [newval]
+pop dword ptr [ebx+1C]//pop dword ptr [debug]
+
+//fstp dword ptr [ebx+1C]
+add esp, 18
+pop ebx
+jmp return
+
+aob:
+jmp newmem
+nop
+nop
+
+return:
+registersymbol(aob)
+
+[DISABLE]
+aob:
+db D9 5B 1C 83 C4 18 5B C3 D9 81 98 00 00 00
+unregistersymbol(aob)
+dealloc(newmem)
+dealloc(newval)
+dealloc(myval)
+dealloc(debug)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"Auto Assemble script 2"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(newmem, 1024)
+alloc(newval, 32)
+alloc(myval, 32)
+alloc(debug, 32)
+aobscan(aob, D9 81 8C 00 00 00 D9 81 98 00 00 00 D8 C1)
+
+label(return)
+
+newval:
+dd 0
+
+myval:
+dd 10
+
+debug:
+dd 0
+
+newmem:
+//fld dword ptr [newval] //ecx+0000008C
+//inc dword ptr [newval]
+//push dword ptr [newval]
+//pop dword ptr [ecx+0000008C]
+fld dword ptr [ecx+0000008C]
+push dword ptr [ecx+0000008C]
+pop dword ptr [newval]
+add dword ptr [newval], 10
+push dword ptr [newval]
+pop dword ptr [ecx+0000008C]
+jmp return
+
+aob:
+jmp newmem
+nop
+
+return:
+registersymbol(aob)
+
+[DISABLE]
+aob:
+db D9 81 8C 00 00 00 D9 81 98 00 00 00 D8 C1
+unregistersymbol(aob)
+dealloc(newmem)
+dealloc(newval)
+dealloc(myval)
+dealloc(debug)
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>Change of fld dword ptr [ecx+0000008C]</Description>
+      <Address>005F9067</Address>
+      <ModuleName>TITAN.exe</ModuleName>
+      <ModuleNameOffset>1F9067</ModuleNameOffset>
+      <Before>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>74</Byte>
+        <Byte>49</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>81</Byte>
+        <Byte>8C</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>D9</Byte>
+        <Byte>81</Byte>
+        <Byte>98</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of fld dword ptr [ecx+00000098]</Description>
+      <Address>005F906D</Address>
+      <ModuleName>TITAN.exe</ModuleName>
+      <ModuleNameOffset>1F906D</ModuleNameOffset>
+      <Before>
+        <Byte>81</Byte>
+        <Byte>8C</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>81</Byte>
+        <Byte>98</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>D8</Byte>
+        <Byte>C1</Byte>
+        <Byte>D9</Byte>
+        <Byte>91</Byte>
+        <Byte>98</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of fadd st(0),st(1)</Description>
+      <Address>005F9073</Address>
+      <ModuleName>TITAN.exe</ModuleName>
+      <ModuleNameOffset>1F9073</ModuleNameOffset>
+      <Before>
+        <Byte>81</Byte>
+        <Byte>98</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>D8</Byte>
+        <Byte>C1</Byte>
+      </Actual>
+      <After>
+        <Byte>D9</Byte>
+        <Byte>91</Byte>
+        <Byte>98</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of fxch st(1)</Description>
+      <Address>005F9086</Address>
+      <ModuleName>TITAN.exe</ModuleName>
+      <ModuleNameOffset>1F9086</ModuleNameOffset>
+      <Before>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>DE</Byte>
+        <Byte>CA</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>C9</Byte>
+      </Actual>
+      <After>
+        <Byte>D8</Byte>
+        <Byte>81</Byte>
+        <Byte>84</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of fstp dword ptr [ebx+1C]</Description>
+      <Address>005F90A8</Address>
+      <ModuleName>TITAN.exe</ModuleName>
+      <ModuleNameOffset>1F90A8</ModuleNameOffset>
+      <Before>
+        <Byte>E8</Byte>
+        <Byte>3C</Byte>
+        <Byte>67</Byte>
+        <Byte>FF</Byte>
+        <Byte>FF</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>5B</Byte>
+        <Byte>1C</Byte>
+      </Actual>
+      <After>
+        <Byte>83</Byte>
+        <Byte>C4</Byte>
+        <Byte>18</Byte>
+        <Byte>5B</Byte>
+        <Byte>C3</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of je TITAN.exe+1F90B0</Description>
+      <Address>005F9065</Address>
+      <ModuleName>TITAN.exe</ModuleName>
+      <ModuleNameOffset>1F9065</ModuleNameOffset>
+      <Before>
+        <Byte>90</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>74</Byte>
+        <Byte>49</Byte>
+      </Actual>
+      <After>
+        <Byte>D9</Byte>
+        <Byte>81</Byte>
+        <Byte>8C</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols/>
+  <Comments>Info about this table:
+</Comments>
+</CheatTable>

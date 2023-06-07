@@ -1,7 +1,7 @@
 # Titan Souls Arrow Modding (2017)
 
 In the game Titan Souls the player is equipped with a bow and arrow.
-The player has only one arrow and can call it back to him.
+The player has only one arrow and can call it back.
 
 This modification bypasses the collisions of the arrow with the wall and
 changes the arrow trajectory so that it orbits around the player.

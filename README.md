@@ -8,7 +8,7 @@ changes the arrow trajectory so that it orbits around the player.
 
 ## Demo (Video)
 
-[![IMAGE ALT TEXT](http://img.youtube.com/vi/MDQf_ohVJvc/0.jpg)](http://www.youtube.com/watch?v=MDQf_ohVJvc "Titan Souls Arrow Modding")
+https://github.com/Meloweh/TitanSoulsArrowMod/assets/49780209/8da2d83e-eca9-4539-b06d-25e32fa09b2e
 
 ## Languages
 
